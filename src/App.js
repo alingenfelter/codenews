@@ -18,8 +18,15 @@ const Form = require('./components/Form.js')
 module.exports = React.createClass({
   getInitialState: _ => ({items}),
   scoreChanged: function (item) {
-    this.setState({items})
+    this.setState({items: this.state.items})
   },
+addNewsItem: function (newItem) {
+  this.setState({
+    items: this.state
+      .items.concat([newItem])
+  })
+},
+
   render() {
     return h('div.pa4.bg-blue.vh-100', [
      h(Header, { title: "Code News!"}),
@@ -27,8 +34,8 @@ module.exports = React.createClass({
        h(List, { items:this.state.items,
          onScoreChange: this.scoreChanged
        }),
-       h(Form)
-     ])
+       h(Form, {addNewsItem: this.addNewsItem})
+      ])
     ])
   }
 })
